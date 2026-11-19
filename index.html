@@ -1,152 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GetTranscript</title>
 <style>
-  :root {
-    --bg: #0f172a;
-    --card: #1e293b;
-    --accent: #38bdf8;
-    --accent2: #818cf8;
-    --text: #e2e8f0;
-    --muted: #94a3b8;
-    --border: #334155;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: system-ui, -apple-system, sans-serif; background: #0f0f1a; color: #e0e0e0; padding: 24px; }
 
-  .hero {
-    text-align: center;
-    padding: 80px 20px 60px;
-    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
-  }
-  .hero h1 { font-size: 3rem; font-weight: 800; margin-bottom: 16px; }
-  .hero h1 span { background: linear-gradient(90deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-  .hero p { font-size: 1.2rem; color: var(--muted); max-width: 600px; margin: 0 auto 32px; }
-  .hero-buttons a {
-    display: inline-block; padding: 12px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; margin: 0 8px;
-  }
-  .btn-primary { background: var(--accent); color: #0f172a; }
-  .btn-secondary { border: 1px solid var(--border); color: var(--text); }
-  .btn-secondary:hover { border-color: var(--accent); }
+.page { max-width: 960px; margin: 0 auto; }
 
-  .pipeline {
-    display: flex; justify-content: center; align-items: center; flex-wrap: wrap;
-    padding: 60px 20px; gap: 12px; max-width: 900px; margin: 0 auto;
-  }
-  .pipe-step {
-    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
-    padding: 20px 24px; text-align: center; min-width: 160px;
-  }
-  .pipe-step .icon { font-size: 2rem; margin-bottom: 8px; }
-  .pipe-step h3 { font-size: 0.95rem; margin-bottom: 4px; }
-  .pipe-step p { font-size: 0.8rem; color: var(--muted); }
-  .pipe-arrow { font-size: 1.5rem; color: var(--accent); }
+.hero h1 { font-size: 30px; color: #fff; margin-bottom: 10px; }
+.hero h1 span { color: #e94560; }
+.hero .desc { font-size: 15px; color: #999; line-height: 1.7; margin-bottom: 24px; }
+.hero .desc a { color: #5b8def; text-decoration: none; }
+.hero .desc a:hover { text-decoration: underline; }
 
-  .section { padding: 60px 20px; max-width: 900px; margin: 0 auto; }
-  .section h2 { font-size: 1.8rem; font-weight: 700; margin-bottom: 32px; text-align: center; }
+h2 { font-size: 20px; color: #fff; margin: 32px 0 12px; }
+.section-desc { font-size: 14px; color: #888; line-height: 1.6; margin-bottom: 16px; }
 
-  .features {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;
-  }
-  .feature-card {
-    background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 24px;
-  }
-  .feature-card h3 { font-size: 1.1rem; margin-bottom: 8px; color: var(--accent); }
-  .feature-card p { font-size: 0.9rem; color: var(--muted); }
+.pipeline {
+  display: flex; justify-content: center; align-items: center; flex-wrap: wrap;
+  gap: 16px; margin: 28px 0 36px;
+}
+.pipe-step {
+  background: #16213e; border-radius: 8px; padding: 20px 24px;
+  text-align: center; min-width: 150px; flex: 1;
+}
+.pipe-step .icon { font-size: 28px; margin-bottom: 8px; }
+.pipe-step h3 { font-size: 14px; color: #fff; margin-bottom: 4px; }
+.pipe-step p { font-size: 12px; color: #888; }
+.pipe-arrow { font-size: 20px; color: #e94560; font-weight: bold; }
 
-  .tech-tags {
-    display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; padding: 40px 20px 80px;
-  }
-  .tech-tag {
-    background: var(--card); border: 1px solid var(--border); border-radius: 20px;
-    padding: 8px 18px; font-size: 0.85rem; color: var(--muted);
-  }
+.features { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 32px; }
+.feature {
+  background: #16213e; border-radius: 8px; padding: 14px 18px;
+}
+.feature h3 { font-size: 14px; color: #fff; margin-bottom: 4px; }
+.feature p { font-size: 13px; color: #888; line-height: 1.5; }
 
-  @media (max-width: 600px) {
-    .hero h1 { font-size: 2rem; }
-    .pipeline { flex-direction: column; }
-    .pipe-arrow { transform: rotate(90deg); }
-  }
+.footer { text-align: center; font-size: 13px; color: #555; padding: 24px 0; border-top: 1px solid #1e1e3a; margin-top: 16px; }
+.footer a { color: #5b8def; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+@media (max-width: 640px) {
+  .hero h1 { font-size: 24px; }
+  .features { grid-template-columns: 1fr; }
+  .pipeline { flex-direction: column; gap: 8px; }
+  .pipe-arrow { transform: rotate(90deg); }
+}
 </style>
 </head>
 <body>
+<div class="page">
 
-<div class="hero">
-  <h1><span>GetTranscript</span></h1>
-  <p>A local-first audio transcription toolkit. Download, transcribe, and polish — from YouTube video to publication-ready transcript in three commands.</p>
-  <div class="hero-buttons">
-    <a href="https://github.com/YangXiang-Dev/GetTranscript" class="btn-primary">View on GitHub</a>
-    <a href="https://yangxiangdev.com/projects/" class="btn-secondary">Back to Projects</a>
-  </div>
-</div>
+  <section class="hero">
+    <h1>Get<span>Transcript</span></h1>
+    <p class="desc">
+      A local-first audio transcription toolkit. Download, transcribe, and polish —
+      from YouTube video to publication-ready transcript in three commands.
+      All speech recognition runs on your own GPU; audio never leaves your machine.
+      <br><a href="https://github.com/yang-devv/GetTranscript">View source on GitHub →</a>
+    </p>
+  </section>
 
-<div class="pipeline">
-  <div class="pipe-step">
-    <div class="icon">🎬</div>
-    <h3>YouTube / Audio</h3>
-    <p>Any video or audio file</p>
+  <h2>Pipeline</h2>
+  <div class="pipeline">
+    <div class="pipe-step">
+      <div class="icon">🎬</div>
+      <h3>YouTube / Audio</h3>
+      <p>Any video or audio file</p>
+    </div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-step">
+      <div class="icon">🎙</div>
+      <h3>Whisper large-v3</h3>
+      <p>GPU-accelerated STT</p>
+    </div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-step">
+      <div class="icon">🤖</div>
+      <h3>LLM Punctuation</h3>
+      <p>LLM API formatting</p>
+    </div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-step">
+      <div class="icon">📄</div>
+      <h3>Polished Transcript</h3>
+      <p>Clean, readable text</p>
+    </div>
   </div>
-  <div class="pipe-arrow">→</div>
-  <div class="pipe-step">
-    <div class="icon">🎙</div>
-    <h3>Whisper large-v3</h3>
-    <p>GPU-accelerated STT</p>
-  </div>
-  <div class="pipe-arrow">→</div>
-  <div class="pipe-step">
-    <div class="icon">🤖</div>
-    <h3>LLM Punctuation</h3>
-    <p>DeepSeek API formatting</p>
-  </div>
-  <div class="pipe-arrow">→</div>
-  <div class="pipe-step">
-    <div class="icon">📄</div>
-    <h3>Polished Transcript</h3>
-    <p>Clean, readable text</p>
-  </div>
-</div>
 
-<div class="section">
   <h2>Features</h2>
   <div class="features">
-    <div class="feature-card">
-      <h3>YouTube Auto-Download</h3>
-      <p>Pass a video or playlist URL. The tool uses yt-dlp to extract the highest quality WAV audio automatically.</p>
-    </div>
-    <div class="feature-card">
-      <h3>Local Whisper Transcription</h3>
-      <p>Runs OpenAI's Whisper large-v3 locally via faster-whisper. Supports GPU batch inference, checkpoint resume, and float16/int8 precision modes.</p>
-    </div>
-    <div class="feature-card">
-      <h3>Intelligent Punctuation</h3>
-      <p>Raw speech-to-text output is messy. The LLM post-processor adds punctuation, paragraph breaks, and natural formatting to produce publication-ready transcripts.</p>
-    </div>
-    <div class="feature-card">
+    <div class="feature">
       <h3>Fully Local & Private</h3>
-      <p>All speech recognition runs on your own GPU. Only the text formatting step optionally calls an external API — your audio never leaves your machine.</p>
+      <p>All speech recognition runs on your GPU. Only the text formatting step optionally calls an external API.</p>
     </div>
-    <div class="feature-card">
+    <div class="feature">
       <h3>Batch Processing</h3>
-      <p>Process entire folders of audio files. Checkpoint support means you can pause and resume without losing progress.</p>
+      <p>Process entire folders of audio files with checkpoint support for pause and resume.</p>
     </div>
-    <div class="feature-card">
-      <h3>Flexible Hardware</h3>
-      <p>Best with 8GB+ VRAM GPU. Falls back to int8 for smaller GPUs, or CPU mode if no NVIDIA card is available.</p>
+    <div class="feature">
+      <h3>GPU Accelerated</h3>
+      <p>Best with 8GB+ VRAM. Falls back to int8 for smaller GPUs, or CPU mode if no NVIDIA card.</p>
+    </div>
+    <div class="feature">
+      <h3>Streaming Output</h3>
+      <p>Watch tokens arrive in real time with streaming mode, or wait for the complete result.</p>
     </div>
   </div>
-</div>
 
-<div class="tech-tags">
-  <span class="tech-tag">Python</span>
-  <span class="tech-tag">faster-whisper</span>
-  <span class="tech-tag">yt-dlp</span>
-  <span class="tech-tag">CUDA</span>
-  <span class="tech-tag">DeepSeek API</span>
-  <span class="tech-tag">FFmpeg</span>
-</div>
+  <div class="footer">
+    <a href="https://github.com/yang-devv/GetTranscript">View source on GitHub</a> &middot;
+    Python · faster-whisper · yt-dlp · CUDA · DeepSeek API · FFmpeg
+  </div>
 
+</div>
 </body>
 </html>
